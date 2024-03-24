@@ -12,6 +12,7 @@ from admin import setup_admin
 from models import db
 from flask_jwt_extended import JWTManager
 from routes.users import users
+from routes.products import products
 
 app = Flask(__name__)
 app.url_map.strict_slashes = False
@@ -27,7 +28,9 @@ else:
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 jwt = JWTManager(app)
 
-app.register_blueprint(users)
+app.register_blueprint(users, url_prefix='/users', name='users_bp')
+app.register_blueprint(products, url_prefix='/products', name='products_bp')
+
 
 
 MIGRATE = Migrate(app, db)

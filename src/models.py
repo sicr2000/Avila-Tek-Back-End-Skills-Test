@@ -10,15 +10,13 @@ class User(db.Model):
     password = db.Column(db.String(80), unique=False, nullable=False)
     createdAt = db.Column(db.DateTime, nullable=False)
 
-
-
     def init(self, name, lastname, email, password):
         self.name = name
         self.lastname = lastname
         self.email = email
         self.password = password
 
-    def repr(self):
+    def __repr__(self):
         return '<User %r>' % self.username
 
     def serialize(self):
@@ -29,3 +27,122 @@ class User(db.Model):
             "email": self.email,
             # do not serialize the password, its a security breach
         }
+    
+class Products(db.Model):
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(256), nullable=False)
+    description = db.Column(db.String(1000), nullable=False)
+    image = db.Column(db.String(1700), nullable=True)
+    amount = db.Column(db.Integer, nullable=False)
+    price = db.Column(db.Float(4,2), nullable=False)
+
+    def __init__(self, name, price, image, amount=1, description=''):
+        self.name = name
+        self.description = description
+        self.image = image
+        self.amount = amount
+        self.price = price
+
+    @classmethod
+    def create(cls, name, price, amount, image, description):
+        new_product = cls(name=name, price=price, image=image, amount=amount, description=description)
+        try:
+            db.session.add(new_product)
+            db.session.commit()
+            return new_product
+        except ValueError as err:
+            print(err)
+            return None
+        
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "description": self.description,
+            "image_url": self.image,
+            "quantity": self.amount,
+            "price": self.price
+        }
+    
+class Address(db.Model):
+
+    id = db.Column(db.Integer, primary_key=True)
+    country = db.Column(db.String(80), nullable=False)
+    city = db.Column(db.String(80), nullable=False)
+    address = db.Column(db.String(80), nullable=False)
+
+    def __init__(self, country, city, address):
+        self.country = country
+        self.city = city
+        self.address = address
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "address": self.address,
+        }
+
+class Customer(User):
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    delivery_address_id = db.Column(db.Integer, db.ForeignKey('address.id'))
+
+    delivery_address = db.relationship('Address')
+
+    def __init__(self, email, password, address, salt, name):
+        super().__init__(email=email, password=password, salt=salt, name=name)
+        self.delivery_address = address
+
+    def serialize(self):
+        return {
+            "user": super().serialize(),
+            "address": self.delivery_address.serialize()
+        }
+    
+class Driver(User):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    serial_plate = db.Column(db.String(10), nullable=False)
+
+    def __init__(self, email, password, serial_plate, vehicle, salt, name):
+        super().__init__(email=email, password=password, salt=salt, name=name)
+        self.serial_plate = serial_plate
+        self.vehicle = vehicle
+
+    def serialize(self):
+        return {
+            "driver" : super().serialize(),
+            "vehicle": self.vehicle.value
+            }
+
+association_table = db.Table(
+    "association_table_orders",
+    db.Column("products", db.Integer ,db.ForeignKey("products.id")),
+    db.Column("orders", db.Integer ,db.ForeignKey("orders.id")),
+)
+
+class Order(db.Model):
+
+        __tablename__ = "orders"
+        id = db.Column(db.Integer, primary_key=True)
+
+        delivery_id = db.Column(db.Integer,db.ForeignKey('driver.id'))
+        delivery = db.relationship("Driver")
+
+        customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'))
+        customer = db.relationship("Customer")
+
+        products = db.relationship("Products", secondary=association_table)
+
+        def __init__(self, delivery, customer):
+            self.delivery = delivery
+            self.customer = customer
+
+        def serialize(self):
+            return {
+                "id": self.id,
+                "customer_address": self.customer.delivery_address.serialize(),
+                "items": [ pro.serialize() for pro in self.products]
+            }
