@@ -13,6 +13,8 @@ from models import db
 from flask_jwt_extended import JWTManager
 from routes.users import users
 from routes.products import products
+from routes.drivers import drivers
+from routes.customers import customers
 
 app = Flask(__name__)
 app.url_map.strict_slashes = False
@@ -30,6 +32,8 @@ jwt = JWTManager(app)
 
 app.register_blueprint(users, url_prefix='/users', name='users_bp')
 app.register_blueprint(products, url_prefix='/products', name='products_bp')
+app.register_blueprint(customers, url_prefix='/customers', name='customers_bp')
+app.register_blueprint(drivers, url_prefix='/drivers', name='drivers_bp')
 
 
 

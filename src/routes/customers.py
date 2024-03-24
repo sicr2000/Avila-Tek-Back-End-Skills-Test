@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask import request, jsonify
 import bcrypt
-from models import db, User, Products
+from models import db, User, Products, Customer, Address
 import re
 import math
 from flask_jwt_extended import create_access_token
@@ -59,4 +59,21 @@ def create_customer():
         try:
             new_address = Address(country=country, city=city, address=address)
 
-            db.
+            db.session.add(new_address)
+
+            new_customer = Customer(email=email, password=hashed_password.decode('utf-8'), address=new_address, salt=salt.decode('utf-8'), name=name, lastname=lastname, createdAt=datetime.utcnow())
+
+            db.session.add(new_customer)
+
+            db.session.commit()
+
+            return { "customer": new_customer.serialize(), "token": create_access_token(identity=email, expires_delta=timedelta(hours==3)) }, 200
+
+        except ValueError as err:
+
+            return { "message": "An unexpected error has occured" }
+
+    else:
+        return { "message": "User field missing in request body" }, 400
+
+    return jsonify(body), 200

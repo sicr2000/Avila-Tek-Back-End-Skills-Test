@@ -88,11 +88,13 @@ class Customer(User):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     delivery_address_id = db.Column(db.Integer, db.ForeignKey('address.id'))
+    createAt = db.Column(db.DateTime, nullable=False)
+    salt = db.Column(db.String(128))
 
     delivery_address = db.relationship('Address')
 
-    def __init__(self, email, password, address, salt, name):
-        super().__init__(email=email, password=password, salt=salt, name=name)
+    def __init__(self, email, password, address, salt, name, lastname):
+        super().__init__(email=email, password=password, salt=salt, name=name, lastname=lastname)
         self.delivery_address = address
 
     def serialize(self):
@@ -105,17 +107,18 @@ class Driver(User):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     serial_plate = db.Column(db.String(10), nullable=False)
+    createdAt = db.Column(db.DateTime, nullable=False)
+    salt = db.Column(db.String(128))
 
-    def __init__(self, email, password, serial_plate, vehicle, salt, name):
-        super().__init__(email=email, password=password, salt=salt, name=name)
+    def __init__(self, email, password, serial_plate, salt, name, lastname, createdAt):
+        super().__init__(email=email, password=password, salt=salt, name=name, lastname=lastname, createdAt=createdAt)
         self.serial_plate = serial_plate
-        self.vehicle = vehicle
 
     def serialize(self):
         return {
-            "driver" : super().serialize(),
-            "vehicle": self.vehicle.value
-            }
+            "driver": super().serialize(),
+            "serial_plate": self.serial_plate
+        }
 
 association_table = db.Table(
     "association_table_orders",
