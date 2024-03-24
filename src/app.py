@@ -12,7 +12,6 @@ from admin import setup_admin
 from models import db
 from flask_jwt_extended import JWTManager
 from routes.users import users
-from routes.user_suggestion import user_suggestion
 
 app = Flask(__name__)
 app.url_map.strict_slashes = False

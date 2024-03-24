@@ -35,17 +35,10 @@ def get_user():
 @jwt_required()
 def get_users():
     email = get_jwt_identity()
-    admin_found = False
     user = User.query.filter_by(email=email).first()
     if not user:
         return jsonify("User has changed their email"), 404
     user = user.serialize()
-    for role in user["role"]:
-        if role["role"] == "admin":
-            admin_found = True
-            break
-    if not admin_found:
-        return jsonify("Unauthorized user"), 400
     users = User.query.all()
     all_users = list(map(lambda x: x.serialize(), users))
     return jsonify(all_users), 200
@@ -66,15 +59,7 @@ def create_user():
         and "lastname" in body.keys()
         and body["lastname"] != ""
         and body["lastname"] is not None
-        and "role" in body.keys()
-        and body["role"] != ""
-        and body["role"] is not None
     ):
-        items = body.get("role", [])
-        status= body.get("status")
-        phone= body.get("phone")
-        birthday= body.get("birthday")
-        address= body.get("address")
         name = body.get("name").capitalize()
         lastname = body.get("lastname").capitalize()
         email = body.get("email").lower()
@@ -86,37 +71,23 @@ def create_user():
             return jsonify({"message": "Email format is invalid"}), 400
         if len(password) < 6:
             return jsonify({"message": "Password must be at least 6 characters"}), 400
-        if len(items) < 1:
-            return jsonify({"message": "A user must have at least one role"}), 400
         bpassword = bytes(password, "utf-8")
         salt = bcrypt.gensalt(14)
         hashed_password = bcrypt.hashpw(password=bpassword, salt=salt)
-        roles = []
-        for item in items:
-            role = Role.query.filter_by(role=item).first()
-            if role:
-                roles.append(role)
-            else:
-                return jsonify({"message": f"Role {item} doesn't exist"}), 404
         user = User(
             name=name,
             lastname=lastname,
             email=email,
             createdAt=datetime.now(),
-            address=address,
-            phone=phone,
-            status=status,
-            birthday=birthday,
             password=hashed_password.decode("utf-8"),
         )
-        user.role = roles
         db.session.add(user)
         db.session.commit()
         return jsonify({"message": "A user has been created", "email": user.email}), 201
     return (
         jsonify(
             {
-                "message": "Attributes name, lastname, email, password and roles are needed"
+                "message": "Attributes name, lastname, email and password are ne"
             }
         ),
         400,
@@ -130,7 +101,7 @@ def update_user(user_id):
     if not user:
         return jsonify({"message": f"User {email} already exists"}), 422
     
-    keys = ["name", "lastname", "email", "password", "status", "phone", "address", "birthday"]
+    keys = ["name", "lastname", "email", "password"]
     for key in keys:
         if key in body and body[key] and body[key] != "":
             if key == "email":
@@ -149,18 +120,6 @@ def update_user(user_id):
                     setattr(user, key, body[key])
             else:
                 setattr(user, key, body[key].capitalize())
-    if "role" in body and body["role"] and body["role"] != "":
-        items = body.get("role", [])
-        if len(items) < 1:
-            return jsonify({"message": "A user must have at least one role"}), 400
-        roles = []
-        for item in items:
-            role = Role.query.filter_by(role=item).first()
-            if role:
-                roles.append(role)
-            else:
-                return jsonify({"message": f"Role {item} doesn't exist"}), 404
-        user.role = roles
     db.session.commit()
     return jsonify({"message": "A user has been updated", "email": user.email}), 201
 
