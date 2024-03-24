@@ -7,23 +7,19 @@ import math
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
-from utils import APIException
+from utils import APIException, check
 import os
 from datetime import datetime
+from datetime import timedelta
 
 customers = Blueprint("customers", __name__)
 
-def check(email):
-    regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
-    # pass the regular expression
-    # and the string into the fullmatch() method
-    if(re.fullmatch(regex, email)):
-        return True
-    else:
-        return False
-
 @customers.route("/new_customer", methods=['POST'])
 def create_customer():
+    """Dado la información necesaria, crea un nuevo usuario 
+    y almacena la información adicional en la base de datos clasificandolo como 
+    un comprador.
+    """
 
     body = request.get_json()
 
@@ -67,7 +63,7 @@ def create_customer():
 
             db.session.commit()
 
-            return { "customer": new_customer.serialize(), "token": create_access_token(identity=email, expires_delta=timedelta(hours==3)) }, 200
+            return { "customer": new_customer.serialize(), "token": create_access_token(identity=email, expires_delta=timedelta(hours=3)) }, 200
 
         except ValueError as err:
 

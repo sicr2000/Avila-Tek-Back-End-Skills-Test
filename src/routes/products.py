@@ -35,6 +35,9 @@ def load_products():
 
 @products.route("/new_product", methods=['POST'])
 def create_product():
+    """Dado la información necesaria crea un nuevo
+    producto en la base de datos. 
+    """
     body = request.get_json()
 
     name = body.get("name", None)
@@ -54,6 +57,9 @@ def create_product():
 
 @products.route("/<int:product_id>", methods=["PUT"])
 def update_product(product_id):
+    """Dado la información necesaria actualiza un
+    producto en la base de datos. 
+    """
     product = Products.query.get(product_id)
     if not product:
         return jsonify({"message": "Product not found"}), 404
@@ -68,6 +74,9 @@ def update_product(product_id):
 
 @products.route("/<int:product_id>", methods=["DELETE"])
 def delete_product(product_id):
+    """Dado la información necesaria elimina un
+    producto en la base de datos. 
+    """
     product = Products.query.get(product_id)
     if not product:
         return jsonify({"message": "Product not found"}), 404

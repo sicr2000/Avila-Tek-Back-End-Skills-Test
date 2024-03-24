@@ -6,16 +6,9 @@ import re
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
-from utils import APIException
+from utils import APIException, check
 import os
 from datetime import datetime
-
-def check_email(email):
-    regex = r"[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}"
-    if re.fullmatch(regex, email):
-        return True
-    else:
-        return False
 
 
 users = Blueprint("users", __name__)
@@ -24,6 +17,12 @@ users = Blueprint("users", __name__)
 @users.route("/user", methods=["GET"])
 @jwt_required()
 def get_user():
+    """Dado la información necesaria entrega la 
+    información de un usuario. 
+    
+    Esta ruta requiere autenticación para 
+    retornar la información.
+    """
     email = get_jwt_identity()
     user = User.query.filter_by(email=email).first()
     if user:
@@ -34,6 +33,12 @@ def get_user():
 @users.route("/users", methods=["GET"])
 @jwt_required()
 def get_users():
+    """Dado la información necesaria entrega un listado de 
+    todos los usuarios. 
+    
+    Esta ruta requiere autenticación para 
+    retornar la información.
+    """
     email = get_jwt_identity()
     user = User.query.filter_by(email=email).first()
     if not user:
@@ -45,6 +50,9 @@ def get_users():
 
 @users.route("/user", methods=["POST"])
 def create_user():
+    """Dado la información necesaria crea un nuevo
+    usuario y lo agrega a la base de datos. 
+    """
     body = request.get_json()
     if (
         "email" in body.keys()
@@ -96,6 +104,12 @@ def create_user():
 @users.route("/user/<int:user_id>", methods=["PUT"])
 @jwt_required()
 def update_user(user_id):
+    """Dado la información necesaria actualiza la
+    información del usuario.
+    
+    Esta ruta requiere autenticación para 
+    retornar la información.
+    """
     body = request.get_json()
     user = User.query.get(user_id)
     if not user:
@@ -126,6 +140,12 @@ def update_user(user_id):
 @users.route("/user/<int:user_id>", methods=["DELETE"])
 @jwt_required()
 def deleteUser(user_id):
+    """Dado la información necesaria elimina
+    un usuario. 
+    
+    Esta ruta requiere autenticación para 
+    retornar la información.
+    """
     user = User.query.get(user_id)
     if user:
         db.session.delete(user)
@@ -136,6 +156,9 @@ def deleteUser(user_id):
 
 @users.route("/token", methods=["POST"])
 def create_token():
+    """Dado la información necesaria retorna un
+    token que permite autenticar al usuario. 
+    """
     email = request.json.get("email", None)
     password = request.json.get("password", None)
     if email is None or password is None or email == "" or password == "":

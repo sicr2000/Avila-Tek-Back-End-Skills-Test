@@ -3,6 +3,14 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 class User(db.Model):
+    """Esto se refiere a un usuario que puede ser un comprador o conductor, 
+    todo usuario debe tener la siguiente información:
+
+    - Nombre
+    - Apellido
+    - Email
+    - Password    
+    """
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False)
     lastname = db.Column(db.String(120), nullable=False)
@@ -29,6 +37,15 @@ class User(db.Model):
         }
     
 class Products(db.Model):
+    """Esto se refiere a un producto del inventario, 
+    todo producto debe tener la siguiente información:
+
+    - Nombre
+    - Descripción
+    - Imagen
+    - Cantidad
+    - Precio    
+    """
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(256), nullable=False)
@@ -66,6 +83,13 @@ class Products(db.Model):
         }
     
 class Address(db.Model):
+    """Esto se refiere a una dirección del comprador, 
+    toda dirección debe tener la siguiente información:
+
+    - País
+    - Ciudad
+    - Dirección   
+    """
 
     id = db.Column(db.Integer, primary_key=True)
     country = db.Column(db.String(80), nullable=False)
@@ -84,17 +108,27 @@ class Address(db.Model):
         }
 
 class Customer(User):
+    """Esto se refiere a un conductor que es un usuario, 
+    todo conductor debe tener la siguiente información:
 
+    - Nombre
+    - Apellido
+    - Email
+    - Password
+    - País
+    - Ciudad
+    - Dirección   
+    """
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     delivery_address_id = db.Column(db.Integer, db.ForeignKey('address.id'))
-    createAt = db.Column(db.DateTime, nullable=False)
+    createdAt = db.Column(db.DateTime, nullable=False)
     salt = db.Column(db.String(128))
 
     delivery_address = db.relationship('Address')
 
-    def __init__(self, email, password, address, salt, name, lastname):
-        super().__init__(email=email, password=password, salt=salt, name=name, lastname=lastname)
+    def __init__(self, email, password, address, salt, name, lastname, createdAt):
+        super().__init__(email=email, password=password, salt=salt, name=name, lastname=lastname, createdAt=createdAt)
         self.delivery_address = address
 
     def serialize(self):
@@ -104,6 +138,15 @@ class Customer(User):
         }
     
 class Driver(User):
+    """Esto se refiere a un conductor que es un usuario, 
+    todo conductor debe tener la siguiente información:
+
+    - Nombre
+    - Apellido
+    - Email
+    - Password
+    - Serial de Placa   
+    """
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     serial_plate = db.Column(db.String(10), nullable=False)
@@ -127,24 +170,31 @@ association_table = db.Table(
 )
 
 class Order(db.Model):
+    """Esto se refiere a una orden que puede generar un usuario 
+    para adquirir un producto, toda orden debe tener la siguiente 
+    información:
 
-        __tablename__ = "orders"
-        id = db.Column(db.Integer, primary_key=True)
+    - Delivery ID
+    - Comprador
+    - Producto
+    """
+    __tablename__ = "orders"
+    id = db.Column(db.Integer, primary_key=True)
 
-        delivery_id = db.Column(db.Integer,db.ForeignKey('driver.id'))
-        delivery = db.relationship("Driver")
+    delivery_id = db.Column(db.Integer,db.ForeignKey('driver.id'))
+    delivery = db.relationship("Driver")
 
-        customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'))
-        customer = db.relationship("Customer")
+    customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'))
+    customer = db.relationship("Customer")
 
-        products = db.relationship("Products", secondary=association_table)
+    products = db.relationship("Products", secondary=association_table)
 
-        def __init__(self, delivery, customer):
-            self.delivery = delivery
-            self.customer = customer
+    def __init__(self, delivery, customer):
+        self.delivery = delivery
+        self.customer = customer
 
-        def serialize(self):
-            return {
+    def serialize(self):
+        return {
                 "id": self.id,
                 "customer_address": self.customer.delivery_address.serialize(),
                 "items": [ pro.serialize() for pro in self.products]

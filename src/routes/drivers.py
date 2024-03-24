@@ -7,23 +7,18 @@ import math
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
-from utils import APIException
+from utils import APIException, check
 import os
 from datetime import datetime
 
 drivers = Blueprint("drivers", __name__)
 
-def check(email):
-    regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
-    # pass the regular expression
-    # and the string into the fullmatch() method
-    if(re.fullmatch(regex, email)):
-        return True
-    else:
-        return False
-
 @drivers.route("/new_driver", methods=['POST'])
 def create_driver():
+    """Dado la información necesaria crea un nuevo usuario 
+    y almacena la información adicional en la base de datos 
+    clasificandolo como un conductor.
+    """
 
     body = request.get_json()
 
