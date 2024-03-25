@@ -111,7 +111,7 @@ def update_user(user_id):
     body = request.get_json()
     user = User.query.get(user_id)
     if not user:
-        return jsonify({"message": f"User {email} already exists"}), 422
+        return jsonify({"message": f"User {email} doesn't exists"}), 404
     
     keys = ["name", "lastname", "email", "password"]
     for key in keys:

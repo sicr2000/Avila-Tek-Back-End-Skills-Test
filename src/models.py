@@ -104,7 +104,9 @@ class Address(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "address": self.address,
+            "country": self.country,
+            "city": self.city,
+            "address": self.address
         }
 
 class Customer(User):
