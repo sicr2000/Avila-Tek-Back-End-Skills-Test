@@ -932,6 +932,10 @@
                 "example": "Araujo"
               }
             }
+          },
+          "token": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcxMTMwMTM3MiwianRpIjoiZDhiNGFjZGUtNWE1Ny00MGM3LWIzOTktNmMwM2IzYjRkNDgwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InNlYmFzdGlhbmNhc3Ryb3JhamJlQGdtYWlsLmNvbSIsIm5iZiI6MTcxMTMwMTM3MiwiZXhwIjoxNzExMzg3NzcyfQ.SqAJQPanvmJPR1JpcnJpggif6cvMd_WJO_j5yxVzzxE"
           }
         }
       },
@@ -1072,16 +1076,16 @@
         "properties": {
           "delivery": {
             "type": "string",
-            "example": "Juan"
+            "example": "pedroperez@gmail.com"
           },
           "customer": {
             "type": "string",
-            "example": "Araujo"
+            "example": "araujo.j99@gmail.com"
           },
           "products": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Product"
+              "$ref": "#/components/schemas/Product/properties/id"
             }
           }
         }
