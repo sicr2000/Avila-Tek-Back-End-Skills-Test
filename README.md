@@ -1,6 +1,9 @@
 # Instructions
 
-Use Dockers as Dev Container to run the database
+## Use Dockers as Dev Container to run the database:
+
+1) Open Docker
+2) Reopen in container
 
 ## 1) Installation
 
@@ -24,11 +27,17 @@ $ pipenv run migrate # (to make the migrations)
 $ pipenv run upgrade  # (to update your databse with the migrations)
 ```
 
-## 3) Check your API live
+## 3) Install Swagger UI
+
+```sh
+pip install flask-swagger-ui
+```
+
+## 4) Check your API live
 
 1. Once you run the `pipenv run start` command your API will start running live and you can open it by clicking in the "ports" tab and then clicking "open browser".
 
-## 4) API REST Documentation
+## 5) API REST Documentation
 
 You can open it using the url: 'http://localhost:3002/apidocs'
 
