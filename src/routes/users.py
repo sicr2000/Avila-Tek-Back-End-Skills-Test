@@ -13,23 +13,6 @@ from datetime import datetime
 
 users = Blueprint("users", __name__)
 
-
-@users.route("/user", methods=["GET"])
-@jwt_required()
-def get_user():
-    """Dado la información necesaria entrega la 
-    información de un usuario. 
-    
-    Esta ruta requiere autenticación para 
-    retornar la información.
-    """
-    email = get_jwt_identity()
-    user = User.query.filter_by(email=email).first()
-    if user:
-        return jsonify(user.serialize()), 200
-    return jsonify({"message": "User not found"}), 404
-
-
 @users.route("/users", methods=["GET"])
 @jwt_required()
 def get_users():
@@ -47,6 +30,21 @@ def get_users():
     users = User.query.all()
     all_users = list(map(lambda x: x.serialize(), users))
     return jsonify(all_users), 200
+
+@users.route("/user", methods=["GET"])
+@jwt_required()
+def get_user():
+    """Dado la información necesaria entrega la 
+    información de un usuario. 
+    
+    Esta ruta requiere autenticación para 
+    retornar la información.
+    """
+    email = get_jwt_identity()
+    user = User.query.filter_by(email=email).first()
+    if user:
+        return jsonify(user.serialize()), 200
+    return jsonify({"message": "User not found"}), 404
 
 @users.route("/user", methods=["POST"])
 def create_user():
@@ -139,7 +137,7 @@ def update_user(user_id):
 
 @users.route("/user/<int:user_id>", methods=["DELETE"])
 @jwt_required()
-def deleteUser(user_id):
+def delete_user(user_id):
     """Dado la información necesaria elimina
     un usuario. 
     

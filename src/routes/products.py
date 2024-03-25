@@ -58,7 +58,11 @@ def create_product():
 @products.route("/<int:product_id>", methods=["PUT"])
 def update_product(product_id):
     """Dado la información necesaria actualiza un
-    producto en la base de datos. 
+    producto en la base de datos.
+    ---
+    responses:
+        200:
+
     """
     product = Products.query.get(product_id)
     if not product:
@@ -75,7 +79,16 @@ def update_product(product_id):
 @products.route("/<int:product_id>", methods=["DELETE"])
 def delete_product(product_id):
     """Dado la información necesaria elimina un
-    producto en la base de datos. 
+    producto en la base de datos.
+    ---
+    tags:
+        - Products
+    description: Delete a product
+    responses:
+        200:
+            description: A successful response
+            examples:
+                aplication/json: "Product deleted"
     """
     product = Products.query.get(product_id)
     if not product:

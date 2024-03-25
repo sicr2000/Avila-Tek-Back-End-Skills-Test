@@ -120,8 +120,8 @@ class Customer(User):
     - Dirección   
     """
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    delivery_address_id = db.Column(db.Integer, db.ForeignKey('address.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'))
+    delivery_address_id = db.Column(db.Integer, db.ForeignKey('address.id', ondelete='CASCADE'))
     createdAt = db.Column(db.DateTime, nullable=False)
     salt = db.Column(db.String(128))
 
@@ -148,7 +148,7 @@ class Driver(User):
     - Serial de Placa   
     """
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'))
     serial_plate = db.Column(db.String(10), nullable=False)
     createdAt = db.Column(db.DateTime, nullable=False)
     salt = db.Column(db.String(128))
@@ -181,10 +181,10 @@ class Order(db.Model):
     __tablename__ = "orders"
     id = db.Column(db.Integer, primary_key=True)
 
-    delivery_id = db.Column(db.Integer,db.ForeignKey('driver.id'))
+    delivery_id = db.Column(db.Integer,db.ForeignKey('driver.id', ondelete='CASCADE'))
     delivery = db.relationship("Driver")
 
-    customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'))
+    customer_id = db.Column(db.Integer, db.ForeignKey('customer.id', ondelete='CASCADE'))
     customer = db.relationship("Customer")
 
     products = db.relationship("Products", secondary=association_table)

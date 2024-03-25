@@ -1,0 +1,744 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Avila Tek Back-End Skills Test",
+    "description": "Avila Tek Back-End Skills Test",
+    "termsOfService": "",
+    "contact": {
+      "email": "sebastiancastrorajbe@gmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.11"
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3002/apidocs"
+    }
+  ],
+  "tags": [
+    {
+      "name": "User",
+      "description": "Everything about your Users"
+    },
+    {
+      "name": "Products",
+      "description": "Everything about your Products"
+    },
+    {
+      "name": "Customers",
+      "description": "Everything about your Customers"
+    },
+    {
+      "name": "Drivers",
+      "description": "Everything about your Drivers"
+    },
+    {
+      "name": "Orders",
+      "description": "Everything about your Orders"
+    }
+  ],
+  "paths": {
+    "/users/users": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get a list of all users",
+        "description": "Get information about an especific user",
+        "operationId": "get_users",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      }
+    },
+    "/users/user": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get an especific user",
+        "description": "Get information about an especific user",
+        "operationId": "get_user",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pet"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Create a new user",
+        "description": "Create a new user in the data base",
+        "operationId": "create_user",
+        "responses": {
+          "201": {
+            "description": "A user has been created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pet"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      }
+    },
+    "/users/user/<int:user_id>": {
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Update an user",
+        "description": "Update de data from an user",
+        "operationId": "update_user",
+        "responses": {
+          "201": {
+            "description": "A user has been updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pet"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "User already exists",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pet"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Delete an user",
+        "description": "Delete an user from the database",
+        "operationId": "delete_user",
+        "responses": {
+          "200": {
+            "description": "The user has been deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pet"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pet"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      }
+    },
+    "/users/token": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Create a new token",
+        "description": "Create a new tokenn authorization to login into an user account",
+        "operationId": "create_token",
+        "responses": {
+          "200": {
+            "description": "Token Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pet"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User doesn't exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pet"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Returns a list of all products",
+        "description": "Return a list of all products created in the database",
+        "operationId": "load_products",
+        "responses": {
+          "200": {
+            "description": "Returns \"results\", \"total\", \"total_pages\", \"page\"",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pet"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/new_product": {
+      "post": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Returns a list of all products",
+        "description": "Return a list of all products created in the database",
+        "operationId": "create_product",
+        "responses": {
+          "200": {
+            "description": "Return new product created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pet"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request body missing name or price",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pet"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An error occured during product creation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pet"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/<int:product_id>": {
+      "put": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Update an especific product",
+        "description": "Update an especific product in the database",
+        "operationId": "update_product",
+        "responses": {
+          "200": {
+            "description": "Product update successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pet"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Delete an especific product",
+        "description": "Delete an especific product in the database",
+        "operationId": "delete_product",
+        "responses": {
+          "200": {
+            "description": "Product deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pet"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Product not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pet"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customers/new_customer": {
+      "post": {
+        "tags": [
+          "Customers"
+        ],
+        "summary": "Create a new customer",
+        "description": "Create a new customer in database",
+        "operationId": "create_customer",
+        "responses": {
+          "200": {
+            "description": "Customer created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pet"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/drivers/new_driver": {
+      "post": {
+        "tags": [
+          "Drivers"
+        ],
+        "summary": "Create a new driver",
+        "description": "Create a new driver in database",
+        "operationId": "create_driver",
+        "responses": {
+          "200": {
+            "description": "Driver created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pet"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders": {
+      "get": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Get all orders",
+        "description": "Get all orders in database",
+        "operationId": "get_all_orders",
+        "responses": {
+          "200": {
+            "description": "Return a list of all orders",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pet"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to retrive orders",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pet"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders/new_order": {
+      "post": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Create a new order",
+        "description": "Create a new order in database",
+        "operationId": "new_order",
+        "responses": {
+          "200": {
+            "description": "New order created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pet"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Something go wrong or something is missing or incorrect",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pet"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Sebastián"
+          },
+          "lastname": {
+            "type": "string",
+            "example": "Castro"
+          },
+          "email": {
+            "type": "string",
+            "example": "sebastiancastrorajbe@gmail.com"
+          }
+        }
+      },
+      "Order": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 10
+          },
+          "petId": {
+            "type": "integer",
+            "format": "int64",
+            "example": 198772
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32",
+            "example": 7
+          },
+          "shipDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "type": "string",
+            "description": "Order Status",
+            "example": "approved",
+            "enum": [
+              "placed",
+              "approved",
+              "delivered"
+            ]
+          },
+          "complete": {
+            "type": "boolean"
+          }
+        },
+        "xml": {
+          "name": "order"
+        }
+      },
+      "Customer": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 100000
+          },
+          "username": {
+            "type": "string",
+            "example": "fehguy"
+          },
+          "address": {
+            "type": "array",
+            "xml": {
+              "name": "addresses",
+              "wrapped": true
+            },
+            "items": {
+              "$ref": "#/components/schemas/Address"
+            }
+          }
+        },
+        "xml": {
+          "name": "customer"
+        }
+      },
+      "Address": {
+        "type": "object",
+        "properties": {
+          "street": {
+            "type": "string",
+            "example": "437 Lytton"
+          },
+          "city": {
+            "type": "string",
+            "example": "Palo Alto"
+          },
+          "state": {
+            "type": "string",
+            "example": "CA"
+          },
+          "zip": {
+            "type": "string",
+            "example": "94301"
+          }
+        },
+        "xml": {
+          "name": "address"
+        }
+      },
+      "Category": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Dogs"
+          }
+        },
+        "xml": {
+          "name": "category"
+        }
+      },
+      "Tag": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "xml": {
+          "name": "tag"
+        }
+      },
+      "Pet": {
+        "required": [
+          "name",
+          "photoUrls"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 10
+          },
+          "name": {
+            "type": "string",
+            "example": "doggie"
+          },
+          "category": {
+            "$ref": "#/components/schemas/Category"
+          },
+          "photoUrls": {
+            "type": "array",
+            "xml": {
+              "wrapped": true
+            },
+            "items": {
+              "type": "string",
+              "xml": {
+                "name": "photoUrl"
+              }
+            }
+          },
+          "tags": {
+            "type": "array",
+            "xml": {
+              "wrapped": true
+            },
+            "items": {
+              "$ref": "#/components/schemas/Tag"
+            }
+          },
+          "status": {
+            "type": "string",
+            "description": "pet status in the store",
+            "enum": [
+              "available",
+              "pending",
+              "sold"
+            ]
+          }
+        },
+        "xml": {
+          "name": "pet"
+        }
+      },
+      "ApiResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "xml": {
+          "name": "##default"
+        }
+      }
+    },
+    "requestBodies": {
+      "Pet": {
+        "description": "Pet object that needs to be added to the store",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Pet"
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "$ref": "#/components/schemas/Pet"
+            }
+          }
+        }
+      },
+      "UserArray": {
+        "description": "List of user object",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "petstore_auth": {
+        "type": "oauth2",
+        "flows": {
+          "implicit": {
+            "authorizationUrl": "https://petstore3.swagger.io/oauth/authorize",
+            "scopes": {
+              "write:pets": "modify pets in your account",
+              "read:pets": "read your pets"
+            }
+          }
+        }
+      },
+      "api_key": {
+        "type": "apiKey",
+        "name": "api_key",
+        "in": "header"
+      }
+    }
+  }
+}

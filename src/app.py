@@ -16,9 +16,22 @@ from routes.products import products
 from routes.drivers import drivers
 from routes.customers import customers
 from routes.orders import orders
+from flask_swagger_ui import get_swaggerui_blueprint
 
 app = Flask(__name__)
 app.url_map.strict_slashes = False
+SWAGGER_URL = '/apidocs'
+API_URL = '/static/swagger.json'  # Our API url (can of course be a local resource)
+
+swaggerui_blueprint = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={
+        'app_name': "Test application"
+    },
+)
+
+# API Documentation Point localhost:3002/apidocs/
 
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=24)
 
@@ -36,6 +49,7 @@ app.register_blueprint(products, url_prefix='/products', name='products_bp')
 app.register_blueprint(customers, url_prefix='/customers', name='customers_bp')
 app.register_blueprint(drivers, url_prefix='/drivers', name='drivers_bp')
 app.register_blueprint(orders, url_prefix='/orders', name='orders_bp')
+app.register_blueprint(swaggerui_blueprint)
 
 
 
