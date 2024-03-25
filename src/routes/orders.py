@@ -16,6 +16,7 @@ orders = Blueprint("orders", __name__)
 
 
 @orders.route("/", methods=['GET'])
+@jwt_required()
 def get_all_orders():
 
     try:
@@ -28,6 +29,7 @@ def get_all_orders():
 
 
 @orders.route("/new_order", methods=['POST'])
+@jwt_required()
 def new_order():
 
     body = request.get_json()

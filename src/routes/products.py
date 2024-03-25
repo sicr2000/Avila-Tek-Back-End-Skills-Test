@@ -14,6 +14,7 @@ from datetime import datetime
 products = Blueprint("products", __name__)
 
 @products.route("/", methods=['GET'])
+@jwt_required()
 def load_products():
 
     args = request.args
@@ -34,6 +35,7 @@ def load_products():
     } , 200
 
 @products.route("/new_product", methods=['POST'])
+@jwt_required()
 def create_product():
     """Dado la información necesaria crea un nuevo
     producto en la base de datos. 
@@ -56,6 +58,7 @@ def create_product():
     return new_product.serialize() , 200
 
 @products.route("/<int:product_id>", methods=["PUT"])
+@jwt_required()
 def update_product(product_id):
     """Dado la información necesaria actualiza un
     producto en la base de datos.
@@ -77,6 +80,7 @@ def update_product(product_id):
     return jsonify(product.serialize()), 200
 
 @products.route("/<int:product_id>", methods=["DELETE"])
+@jwt_required()
 def delete_product(product_id):
     """Dado la información necesaria elimina un
     producto en la base de datos.

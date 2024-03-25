@@ -31,20 +31,20 @@ def get_users():
     all_users = list(map(lambda x: x.serialize(), users))
     return jsonify(all_users), 200
 
-@users.route("/user", methods=["GET"])
+@users.route("/user/<int:user_id>", methods=["GET"])
 @jwt_required()
-def get_user():
+def get_user(user_id):
     """Dado la información necesaria entrega la 
     información de un usuario. 
     
     Esta ruta requiere autenticación para 
     retornar la información.
     """
-    email = get_jwt_identity()
-    user = User.query.filter_by(email=email).first()
+    user = User.query.get(user_id)
     if user:
         return jsonify(user.serialize()), 200
-    return jsonify({"message": "User not found"}), 404
+    else:
+        return jsonify({"message": "User not found"}), 404
 
 @users.route("/user", methods=["POST"])
 def create_user():
@@ -73,7 +73,7 @@ def create_user():
         possible_user = User.query.filter_by(email=email).first()
         if possible_user:
             return jsonify({"message": "User " + email + " already exists"}), 422
-        if check_email(email) == False:
+        if check(email) == False:
             return jsonify({"message": "Email format is invalid"}), 400
         if len(password) < 6:
             return jsonify({"message": "Password must be at least 6 characters"}), 400
@@ -118,7 +118,7 @@ def update_user(user_id):
         if key in body and body[key] and body[key] != "":
             if key == "email":
                 email = body[key].lower()
-                if not check_email(email):
+                if not check(email):
                     return jsonify({"message": "Email format is invalid"}), 400
                 setattr(user, key, email)
             elif key == "password":

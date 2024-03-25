@@ -59,7 +59,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/User"
+                  "$ref": "#/components/schemas/Users"
                 }
               }
             }
@@ -67,15 +67,53 @@
         },
         "security": [
           {
-            "petstore_auth": [
-              "write:pets",
-              "read:pets"
-            ]
+            "bearerAuth": []
           }
         ]
       }
     },
     "/users/user": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Create a new user",
+        "description": "Create a new user in the database",
+        "operationId": "create_user",
+        "requestBody": {
+          "description": "Create a new user in the database",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserRequiredBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "A user has been created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserCreated"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/users/user/<int:user_id>": {
       "get": {
         "tags": [
           "User"
@@ -89,38 +127,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Pet"
+                  "$ref": "#/components/schemas/ExampleUser2"
                 }
               }
             }
           },
           "404": {
-            "description": "User not found"
-          }
-        },
-        "security": [
-          {
-            "petstore_auth": [
-              "write:pets",
-              "read:pets"
-            ]
-          }
-        ]
-      },
-      "post": {
-        "tags": [
-          "User"
-        ],
-        "summary": "Create a new user",
-        "description": "Create a new user in the data base",
-        "operationId": "create_user",
-        "responses": {
-          "201": {
-            "description": "A user has been created",
+            "description": "User not found",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Pet"
+                  "$ref": "#/components/schemas/GetUserErr404"
                 }
               }
             }
@@ -128,39 +145,48 @@
         },
         "security": [
           {
-            "petstore_auth": [
-              "write:pets",
-              "read:pets"
-            ]
+            "api_key": []
+          },
+          {
+            "bearerAuth": []
           }
         ]
-      }
-    },
-    "/users/user/<int:user_id>": {
+      },
       "put": {
         "tags": [
           "User"
         ],
         "summary": "Update an user",
-        "description": "Update de data from an user",
+        "description": "Update the data from an user in the database",
         "operationId": "update_user",
+        "requestBody": {
+          "description": "Update the data from an user in the database",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExampleUser1"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "201": {
             "description": "A user has been updated",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Pet"
+                  "$ref": "#/components/schemas/UserUpdated"
                 }
               }
             }
           },
-          "422": {
+          "404": {
             "description": "User already exists",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Pet"
+                  "$ref": "#/components/schemas/UpdateUserErr404"
                 }
               }
             }
@@ -168,10 +194,10 @@
         },
         "security": [
           {
-            "petstore_auth": [
-              "write:pets",
-              "read:pets"
-            ]
+            "api_key": []
+          },
+          {
+            "bearerAuth": []
           }
         ]
       },
@@ -188,7 +214,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Pet"
+                  "$ref": "#/components/schemas/UserDeleted"
                 }
               }
             }
@@ -198,7 +224,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Pet"
+                  "$ref": "#/components/schemas/DeleteUserErr404"
                 }
               }
             }
@@ -206,10 +232,10 @@
         },
         "security": [
           {
-            "petstore_auth": [
-              "write:pets",
-              "read:pets"
-            ]
+            "api_key": []
+          },
+          {
+            "bearerAuth": []
           }
         ]
       }
@@ -220,25 +246,36 @@
           "User"
         ],
         "summary": "Create a new token",
-        "description": "Create a new tokenn authorization to login into an user account",
+        "description": "Create a new token authorization to login into an user account",
         "operationId": "create_token",
+        "requestBody": {
+          "description": "Create a new token authorization to login into an user account",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Login"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "Token Created",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Pet"
+                  "$ref": "#/components/schemas/Token"
                 }
               }
             }
           },
-          "400": {
+          "401": {
             "description": "User doesn't exist",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Pet"
+                  "$ref": "#/components/schemas/TokenErr401"
                 }
               }
             }
@@ -260,12 +297,20 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Pet"
+                  "$ref": "#/components/schemas/Product"
                 }
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/products/new_product": {
@@ -276,13 +321,24 @@
         "summary": "Returns a list of all products",
         "description": "Return a list of all products created in the database",
         "operationId": "create_product",
+        "requestBody": {
+          "description": "Return a list of all products created in the database",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewProduct"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "Return new product created",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Pet"
+                  "$ref": "#/components/schemas/Product"
                 }
               }
             }
@@ -292,7 +348,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Pet"
+                  "$ref": "#/components/schemas/CreateProductErr400"
                 }
               }
             }
@@ -302,12 +358,20 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Pet"
+                  "$ref": "#/components/schemas/CreateProductErr500"
                 }
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/products/<int:product_id>": {
@@ -318,18 +382,37 @@
         "summary": "Update an especific product",
         "description": "Update an especific product in the database",
         "operationId": "update_product",
+        "requestBody": {
+          "description": "Update an especific product in the database",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProduct"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "Product update successful",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Pet"
+                  "$ref": "#/components/schemas/ProductUpdated"
                 }
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -344,7 +427,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Pet"
+                  "$ref": "#/components/schemas/ProductDeleted"
                 }
               }
             }
@@ -354,12 +437,20 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Pet"
+                  "$ref": "#/components/schemas/DeleteProductErr404"
                 }
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/customers/new_customer": {
@@ -370,13 +461,24 @@
         "summary": "Create a new customer",
         "description": "Create a new customer in database",
         "operationId": "create_customer",
+        "requestBody": {
+          "description": "Create a new customer in database in the database",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomerRequiredBody"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "Customer created",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Pet"
+                  "$ref": "#/components/schemas/Customer"
                 }
               }
             }
@@ -392,13 +494,24 @@
         "summary": "Create a new driver",
         "description": "Create a new driver in database",
         "operationId": "create_driver",
+        "requestBody": {
+          "description": "Create a new driver in database in the database",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DriverRequiredBody"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "Driver created",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Pet"
+                  "$ref": "#/components/schemas/Driver"
                 }
               }
             }
@@ -420,7 +533,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Pet"
+                  "$ref": "#/components/schemas/Orders"
                 }
               }
             }
@@ -430,12 +543,20 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Pet"
+                  "$ref": "#/components/schemas/GetOrdersErr500"
                 }
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/orders/new_order": {
@@ -446,13 +567,24 @@
         "summary": "Create a new order",
         "description": "Create a new order in database",
         "operationId": "new_order",
+        "requestBody": {
+          "description": "Create a new driver in database in the database",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderRequiredBody"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "New order created",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Pet"
+                  "$ref": "#/components/schemas/Order"
                 }
               }
             }
@@ -462,12 +594,20 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Pet"
+                  "$ref": "#/components/schemas/CreateOrderErr500"
                 }
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     }
   },
@@ -495,98 +635,69 @@
           }
         }
       },
-      "Order": {
+      "CreateUserRequiredBody": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64",
-            "example": 10
-          },
-          "petId": {
-            "type": "integer",
-            "format": "int64",
-            "example": 198772
-          },
-          "quantity": {
-            "type": "integer",
-            "format": "int32",
-            "example": 7
-          },
-          "shipDate": {
+          "name": {
             "type": "string",
-            "format": "date-time"
+            "example": "Jose"
           },
-          "status": {
+          "lastname": {
             "type": "string",
-            "description": "Order Status",
-            "example": "approved",
-            "enum": [
-              "placed",
-              "approved",
-              "delivered"
-            ]
+            "example": "Rajbe"
           },
-          "complete": {
-            "type": "boolean"
+          "email": {
+            "type": "string",
+            "example": "joserajbe@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": 123456
           }
-        },
-        "xml": {
-          "name": "order"
         }
       },
-      "Customer": {
+      "UserCreated": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64",
-            "example": 100000
-          },
-          "username": {
+          "email": {
             "type": "string",
-            "example": "fehguy"
+            "example": "joserajbe@gmail.com"
           },
-          "address": {
-            "type": "array",
-            "xml": {
-              "name": "addresses",
-              "wrapped": true
-            },
-            "items": {
-              "$ref": "#/components/schemas/Address"
-            }
+          "message": {
+            "type": "string",
+            "example": "A user has been created"
           }
-        },
-        "xml": {
-          "name": "customer"
         }
       },
-      "Address": {
+      "UserDeleted": {
         "type": "object",
         "properties": {
-          "street": {
+          "message": {
             "type": "string",
-            "example": "437 Lytton"
-          },
-          "city": {
-            "type": "string",
-            "example": "Palo Alto"
-          },
-          "state": {
-            "type": "string",
-            "example": "CA"
-          },
-          "zip": {
-            "type": "string",
-            "example": "94301"
+            "example": "pedroperez@gmail has been deleted"
           }
-        },
-        "xml": {
-          "name": "address"
         }
       },
-      "Category": {
+      "UserUpdated": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "A user has been updated"
+          },
+          "email": {
+            "type": "string",
+            "example": "sebastiancastrorajbe@gmail.com"
+          }
+        }
+      },
+      "Users": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ExampleUser1"
+        }
+      },
+      "ExampleUser1": {
         "type": "object",
         "properties": {
           "id": {
@@ -596,98 +707,464 @@
           },
           "name": {
             "type": "string",
-            "example": "Dogs"
+            "example": "Sebastián"
+          },
+          "lastname": {
+            "type": "string",
+            "example": "Castro"
+          },
+          "email": {
+            "type": "string",
+            "example": "sebastiancastrorajbe@gmail.com"
           }
-        },
-        "xml": {
-          "name": "category"
         }
       },
-      "Tag": {
+      "ExampleUser2": {
         "type": "object",
         "properties": {
+          "email": {
+            "type": "string",
+            "example": "joserajbe@gmail.com"
+          },
           "id": {
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "example": 2
+          },
+          "lastname": {
+            "type": "string",
+            "example": "Rajbe"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "example": "José"
           }
-        },
-        "xml": {
-          "name": "tag"
         }
       },
-      "Pet": {
-        "required": [
-          "name",
-          "photoUrls"
-        ],
+      "Login": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "sebastiancastrorajbe@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": 123456
+          }
+        }
+      },
+      "Token": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Token created"
+          },
+          "token": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcxMTMwMTM3MiwianRpIjoiZDhiNGFjZGUtNWE1Ny00MGM3LWIzOTktNmMwM2IzYjRkNDgwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InNlYmFzdGlhbmNhc3Ryb3JhamJlQGdtYWlsLmNvbSIsIm5iZiI6MTcxMTMwMTM3MiwiZXhwIjoxNzExMzg3NzcyfQ.SqAJQPanvmJPR1JpcnJpggif6cvMd_WJO_j5yxVzzxE"
+          }
+        }
+      },
+      "Product": {
         "type": "object",
         "properties": {
           "id": {
             "type": "integer",
             "format": "int64",
-            "example": 10
+            "example": 1
           },
           "name": {
             "type": "string",
-            "example": "doggie"
+            "example": "iPhone 14 Pro Max"
           },
-          "category": {
-            "$ref": "#/components/schemas/Category"
+          "description": {
+            "type": "string",
+            "example": "Gold 512 GB"
           },
-          "photoUrls": {
-            "type": "array",
-            "xml": {
-              "wrapped": true
-            },
-            "items": {
-              "type": "string",
-              "xml": {
-                "name": "photoUrl"
+          "image": {
+            "type": "string",
+            "example": "https://pimcdn.sharafdg.com/cdn-cgi/image/width=600,height=600,fit=pad/images/IPHONE14PROMAX_gold_1?1705054846"
+          },
+          "amount": {
+            "type": "integer",
+            "example": 1
+          },
+          "price": {
+            "type": "number",
+            "example": 1499
+          }
+        }
+      },
+      "NewProduct": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "iPhone 14 Pro Max"
+          },
+          "description": {
+            "type": "string",
+            "example": "Gold 512 GB"
+          },
+          "image": {
+            "type": "string",
+            "example": "https://pimcdn.sharafdg.com/cdn-cgi/image/width=600,height=600,fit=pad/images/IPHONE14PROMAX_gold_1?1705054846"
+          },
+          "amount": {
+            "type": "integer",
+            "example": 1
+          },
+          "price": {
+            "type": "number",
+            "example": 1499
+          }
+        }
+      },
+      "UpdateProduct": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "iPhone 14 Pro Max"
+          },
+          "description": {
+            "type": "string",
+            "example": "Gold 512 GB"
+          },
+          "image": {
+            "type": "string",
+            "example": "https://pimcdn.sharafdg.com/cdn-cgi/image/width=600,height=600,fit=pad/images/IPHONE14PROMAX_gold_1?1705054846"
+          },
+          "amount": {
+            "type": "integer",
+            "example": 1
+          },
+          "price": {
+            "type": "number",
+            "example": 1499
+          }
+        }
+      },
+      "ProductUpdated": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "iPhone 14 Pro Max"
+          },
+          "description": {
+            "type": "string",
+            "example": "Gold 1 TB"
+          },
+          "image": {
+            "type": "string",
+            "example": "https://pimcdn.sharafdg.com/cdn-cgi/image/width=600,height=600,fit=pad/images/IPHONE14PROMAX_gold_1?1705054846"
+          },
+          "amount": {
+            "type": "integer",
+            "example": 1
+          },
+          "price": {
+            "type": "number",
+            "example": 1699
+          }
+        }
+      },
+      "ProductDeleted": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Product deleted"
+          }
+        }
+      },
+      "Customer": {
+        "type": "object",
+        "properties": {
+          "customer": {
+            "type": "object",
+            "properties": {
+              "address": {
+                "type": "object",
+                "properties": {
+                  "address": {
+                    "type": "string",
+                    "example": "Santa Fe Norte"
+                  },
+                  "city": {
+                    "type": "string",
+                    "example": "Caracas"
+                  },
+                  "country": {
+                    "type": "string",
+                    "example": "Venezuela"
+                  }
+                }
               }
             }
           },
-          "tags": {
-            "type": "array",
-            "xml": {
-              "wrapped": true
-            },
-            "items": {
-              "$ref": "#/components/schemas/Tag"
+          "user": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "string",
+                "example": "araujo.j99@gmail.com"
+              },
+              "id": {
+                "type": "integer",
+                "format": "int64",
+                "example": 3
+              },
+              "name": {
+                "type": "string",
+                "example": "Juan"
+              },
+              "lastname": {
+                "type": "string",
+                "example": "Araujo"
+              }
             }
-          },
-          "status": {
-            "type": "string",
-            "description": "pet status in the store",
-            "enum": [
-              "available",
-              "pending",
-              "sold"
-            ]
           }
-        },
-        "xml": {
-          "name": "pet"
         }
       },
-      "ApiResponse": {
+      "CustomerRequiredBody": {
         "type": "object",
         "properties": {
-          "code": {
-            "type": "integer",
-            "format": "int32"
+          "name": {
+            "type": "string",
+            "example": "Juan"
           },
-          "type": {
-            "type": "string"
+          "lastname": {
+            "type": "string",
+            "example": "Araujo"
           },
-          "message": {
-            "type": "string"
+          "email": {
+            "type": "string",
+            "example": "araujo.j99@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": 123456
+          },
+          "country": {
+            "type": "string",
+            "example": "Venezuela"
+          },
+          "city": {
+            "type": "string",
+            "example": "Caracas"
+          },
+          "address": {
+            "type": "string",
+            "example": "Santa Fe Norte"
           }
-        },
-        "xml": {
-          "name": "##default"
+        }
+      },
+      "Driver": {
+        "type": "object",
+        "properties": {
+          "driver": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "format": "int64",
+                "example": 4
+              },
+              "name": {
+                "type": "string",
+                "example": "Pedro"
+              },
+              "lastname": {
+                "type": "string",
+                "example": "Perez"
+              },
+              "email": {
+                "type": "string",
+                "example": "pedroperez@gmail.com"
+              }
+            }
+          },
+          "serial_plate": {
+            "type": "string",
+            "example": "AA369XA"
+          }
+        }
+      },
+      "DriverRequiredBody": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Juan"
+          },
+          "lastname": {
+            "type": "string",
+            "example": "Araujo"
+          },
+          "email": {
+            "type": "string",
+            "example": "araujo.j99@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": 123456
+          },
+          "serial_plate": {
+            "type": "string",
+            "example": "AA369XA"
+          }
+        }
+      },
+      "Orders": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Order"
+        }
+      },
+      "Order": {
+        "type": "object",
+        "properties": {
+          "customer_address": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "format": "int64",
+                "example": 10
+              },
+              "country": {
+                "type": "string",
+                "example": "Venezuela"
+              },
+              "city": {
+                "type": "string",
+                "example": "Caracas"
+              },
+              "address": {
+                "type": "string",
+                "example": "Santa Fe Norte"
+              }
+            }
+          },
+          "id": {
+            "type": "integer",
+            "example": 19
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Product"
+            }
+          }
+        }
+      },
+      "OrderRequiredBody": {
+        "type": "object",
+        "properties": {
+          "delivery": {
+            "type": "string",
+            "example": "Juan"
+          },
+          "customer": {
+            "type": "string",
+            "example": "Araujo"
+          },
+          "products": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Product"
+            }
+          }
+        }
+      },
+      "GetUserErr404": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "User not found"
+          }
+        }
+      },
+      "UpdateUserErr404": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "User pedroperez@gmail.com doesn't exists"
+          }
+        }
+      },
+      "DeleteUserErr404": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "User not found"
+          }
+        }
+      },
+      "TokenErr401": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Incorrect password"
+          }
+        }
+      },
+      "CreateProductErr400": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Request body missing name or price"
+          }
+        }
+      },
+      "CreateProductErr500": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "An error occured during product creation"
+          }
+        }
+      },
+      "DeleteProductErr404": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Product not found"
+          }
+        }
+      },
+      "GetOrdersErr500": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Failed to retrive orders"
+          }
+        }
+      },
+      "CreateOrderErr500": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Something is missing or incorrect"
+          }
         }
       }
     },
@@ -697,12 +1174,12 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/Pet"
+              "$ref": "#/components/schemas"
             }
           },
           "application/xml": {
             "schema": {
-              "$ref": "#/components/schemas/Pet"
+              "$ref": "#/components/schemas"
             }
           }
         }
@@ -722,17 +1199,10 @@
       }
     },
     "securitySchemes": {
-      "petstore_auth": {
-        "type": "oauth2",
-        "flows": {
-          "implicit": {
-            "authorizationUrl": "https://petstore3.swagger.io/oauth/authorize",
-            "scopes": {
-              "write:pets": "modify pets in your account",
-              "read:pets": "read your pets"
-            }
-          }
-        }
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       },
       "api_key": {
         "type": "apiKey",
