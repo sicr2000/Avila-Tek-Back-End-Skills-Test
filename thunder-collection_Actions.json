@@ -1,0 +1,305 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Actions",
+    "dateExported": "2024-03-25T02:19:30.380Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "8038b6d2-b062-4ea6-9e00-56d26fc9a4d6",
+            "colId": "fc53b68a-d69e-4f98-b20b-6829785635df",
+            "containerId": "",
+            "name": "Get All Users",
+            "url": "http://localhost:3002/users/users",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2024-03-25T01:30:14.375Z",
+            "modified": "2024-03-25T01:34:58.515Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcxMTMzMDQ4NCwianRpIjoiYTdjNWI5ODgtOGVkMi00ZDc2LWJlNmMtOTU2ZWQ0NDZhZmJlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InNlYmFzdGlhbmNhc3Ryb3JhamJlQGdtYWlsLmNvbSIsIm5iZiI6MTcxMTMzMDQ4NCwiY3NyZiI6IjFmMjI1Y2Y4LTJkYjktNGQ2ZS1iMWZjLTM5Y2IwMGFlNTBiZSIsImV4cCI6MTcxMTQxNjg4NH0.Kn5sriBCIg51Ii9Alo_n0p3_aKdnMr0JY1KBTQd3KeI"
+            },
+            "tests": []
+        },
+        {
+            "_id": "1ff536df-d92b-4b03-bc02-ea16da735393",
+            "colId": "fc53b68a-d69e-4f98-b20b-6829785635df",
+            "containerId": "",
+            "name": "Get an User",
+            "url": "http://localhost:3002/users/user/1",
+            "method": "GET",
+            "sortNum": 15000,
+            "created": "2024-03-25T01:35:13.437Z",
+            "modified": "2024-03-25T01:35:44.325Z",
+            "headers": [],
+            "params": [],
+            "reqType": "get",
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcxMTMzMDQ4NCwianRpIjoiYTdjNWI5ODgtOGVkMi00ZDc2LWJlNmMtOTU2ZWQ0NDZhZmJlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InNlYmFzdGlhbmNhc3Ryb3JhamJlQGdtYWlsLmNvbSIsIm5iZiI6MTcxMTMzMDQ4NCwiY3NyZiI6IjFmMjI1Y2Y4LTJkYjktNGQ2ZS1iMWZjLTM5Y2IwMGFlNTBiZSIsImV4cCI6MTcxMTQxNjg4NH0.Kn5sriBCIg51Ii9Alo_n0p3_aKdnMr0JY1KBTQd3KeI"
+            },
+            "tests": []
+        },
+        {
+            "_id": "2d0d589d-b2f7-4dda-a475-637e95f6717c",
+            "colId": "fc53b68a-d69e-4f98-b20b-6829785635df",
+            "containerId": "",
+            "name": "Update User",
+            "url": "http://localhost:3002/users/user/1",
+            "method": "PUT",
+            "sortNum": 17500,
+            "created": "2024-03-25T01:36:01.424Z",
+            "modified": "2024-03-25T01:37:30.956Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"sebas\",\n  \"lastname\": \"castro rajbe\",\n  \"email\": \"sebastiancastrorajbe@gmail.com\"\n}",
+                "form": []
+            },
+            "reqType": "get",
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcxMTMzMDQ4NCwianRpIjoiYTdjNWI5ODgtOGVkMi00ZDc2LWJlNmMtOTU2ZWQ0NDZhZmJlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InNlYmFzdGlhbmNhc3Ryb3JhamJlQGdtYWlsLmNvbSIsIm5iZiI6MTcxMTMzMDQ4NCwiY3NyZiI6IjFmMjI1Y2Y4LTJkYjktNGQ2ZS1iMWZjLTM5Y2IwMGFlNTBiZSIsImV4cCI6MTcxMTQxNjg4NH0.Kn5sriBCIg51Ii9Alo_n0p3_aKdnMr0JY1KBTQd3KeI"
+            },
+            "tests": []
+        },
+        {
+            "_id": "d196a112-7b15-4f2d-8191-5bcae046d81f",
+            "colId": "fc53b68a-d69e-4f98-b20b-6829785635df",
+            "containerId": "",
+            "name": "Delete User",
+            "url": "http://localhost:3002/users/user/1",
+            "method": "DELETE",
+            "sortNum": 18750,
+            "created": "2024-03-25T01:38:01.029Z",
+            "modified": "2024-03-25T01:38:37.077Z",
+            "headers": [],
+            "params": [],
+            "reqType": "put",
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcxMTMzMDQ4NCwianRpIjoiYTdjNWI5ODgtOGVkMi00ZDc2LWJlNmMtOTU2ZWQ0NDZhZmJlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InNlYmFzdGlhbmNhc3Ryb3JhamJlQGdtYWlsLmNvbSIsIm5iZiI6MTcxMTMzMDQ4NCwiY3NyZiI6IjFmMjI1Y2Y4LTJkYjktNGQ2ZS1iMWZjLTM5Y2IwMGFlNTBiZSIsImV4cCI6MTcxMTQxNjg4NH0.Kn5sriBCIg51Ii9Alo_n0p3_aKdnMr0JY1KBTQd3KeI"
+            },
+            "tests": []
+        },
+        {
+            "_id": "2ca24e17-0370-4593-9d11-950e24155f9d",
+            "colId": "fc53b68a-d69e-4f98-b20b-6829785635df",
+            "containerId": "",
+            "name": "Token",
+            "url": "http://localhost:3002/users/token",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-03-25T01:31:02.592Z",
+            "modified": "2024-03-25T01:34:44.138Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"sebastiancastrorajbe@gmail.com\",\n  \"password\": \"123456\"\n}",
+                "form": []
+            },
+            "reqType": "get",
+            "tests": []
+        },
+        {
+            "_id": "b6628eb2-c6c4-4ac0-9312-4bcb1165818b",
+            "colId": "fc53b68a-d69e-4f98-b20b-6829785635df",
+            "containerId": "",
+            "name": "Create User",
+            "url": "http://localhost:3002/users/user",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2024-03-25T01:31:41.910Z",
+            "modified": "2024-03-25T01:33:54.640Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"sebas\",\n  \"lastname\": \"castro\",\n  \"email\": \"sebastiancastrorajbe@gmail.com\",\n  \"password\": \"123456\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "c6e371e1-c270-4fc9-a4ed-c175d7ba2b11",
+            "colId": "fc53b68a-d69e-4f98-b20b-6829785635df",
+            "containerId": "",
+            "name": "Get All Products",
+            "url": "http://localhost:3002/products",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2024-03-25T01:39:27.322Z",
+            "modified": "2024-03-25T01:40:50.619Z",
+            "headers": [],
+            "params": [],
+            "reqType": "del",
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcxMTMzMDQ4NCwianRpIjoiYTdjNWI5ODgtOGVkMi00ZDc2LWJlNmMtOTU2ZWQ0NDZhZmJlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InNlYmFzdGlhbmNhc3Ryb3JhamJlQGdtYWlsLmNvbSIsIm5iZiI6MTcxMTMzMDQ4NCwiY3NyZiI6IjFmMjI1Y2Y4LTJkYjktNGQ2ZS1iMWZjLTM5Y2IwMGFlNTBiZSIsImV4cCI6MTcxMTQxNjg4NH0.Kn5sriBCIg51Ii9Alo_n0p3_aKdnMr0JY1KBTQd3KeI"
+            },
+            "tests": []
+        },
+        {
+            "_id": "ba58663e-54f6-4926-9be5-7c88b818a2aa",
+            "colId": "fc53b68a-d69e-4f98-b20b-6829785635df",
+            "containerId": "",
+            "name": "Create Product",
+            "url": "http://localhost:3002/products/new_product",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2024-03-25T01:41:00.951Z",
+            "modified": "2024-03-25T01:41:44.834Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"iPhone 14 Pro Max\",\n  \"description\": \"Gold 512 GB\",\n  \"image\": \"https://pimcdn.sharafdg.com/cdn-cgi/image/width=600,height=600,fit=pad/images/IPHONE14PROMAX_gold_1?1705054846\",\n  \"amount\": 1,\n  \"price\": 1499\n}",
+                "form": []
+            },
+            "reqType": "get",
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcxMTMzMDQ4NCwianRpIjoiYTdjNWI5ODgtOGVkMi00ZDc2LWJlNmMtOTU2ZWQ0NDZhZmJlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InNlYmFzdGlhbmNhc3Ryb3JhamJlQGdtYWlsLmNvbSIsIm5iZiI6MTcxMTMzMDQ4NCwiY3NyZiI6IjFmMjI1Y2Y4LTJkYjktNGQ2ZS1iMWZjLTM5Y2IwMGFlNTBiZSIsImV4cCI6MTcxMTQxNjg4NH0.Kn5sriBCIg51Ii9Alo_n0p3_aKdnMr0JY1KBTQd3KeI"
+            },
+            "tests": []
+        },
+        {
+            "_id": "396e9323-2274-4e8f-a4bf-e0f9e4a5e6d4",
+            "colId": "fc53b68a-d69e-4f98-b20b-6829785635df",
+            "containerId": "",
+            "name": "Update Product",
+            "url": "http://localhost:3002/products/1",
+            "method": "DELETE",
+            "sortNum": 60000,
+            "created": "2024-03-25T01:42:12.609Z",
+            "modified": "2024-03-25T01:44:15.824Z",
+            "headers": [],
+            "params": [],
+            "reqType": "post",
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcxMTMzMDQ4NCwianRpIjoiYTdjNWI5ODgtOGVkMi00ZDc2LWJlNmMtOTU2ZWQ0NDZhZmJlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InNlYmFzdGlhbmNhc3Ryb3JhamJlQGdtYWlsLmNvbSIsIm5iZiI6MTcxMTMzMDQ4NCwiY3NyZiI6IjFmMjI1Y2Y4LTJkYjktNGQ2ZS1iMWZjLTM5Y2IwMGFlNTBiZSIsImV4cCI6MTcxMTQxNjg4NH0.Kn5sriBCIg51Ii9Alo_n0p3_aKdnMr0JY1KBTQd3KeI"
+            },
+            "tests": []
+        },
+        {
+            "_id": "7a5ce298-40aa-4180-ae52-973ba1ca8692",
+            "colId": "fc53b68a-d69e-4f98-b20b-6829785635df",
+            "containerId": "",
+            "name": "Delete Product",
+            "url": "http://localhost:3002/products/1",
+            "method": "PUT",
+            "sortNum": 70000,
+            "created": "2024-03-25T01:43:52.751Z",
+            "modified": "2024-03-25T01:43:52.751Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"iPhone 14 Pro Max\",\n  \"description\": \"Gold 1 TB\",\n  \"image\": \"https://pimcdn.sharafdg.com/cdn-cgi/image/width=600,height=600,fit=pad/images/IPHONE14PROMAX_gold_1?1705054846\",\n  \"amount\": 1,\n  \"price\": 1699\n}",
+                "form": []
+            },
+            "reqType": "post",
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcxMTMzMDQ4NCwianRpIjoiYTdjNWI5ODgtOGVkMi00ZDc2LWJlNmMtOTU2ZWQ0NDZhZmJlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InNlYmFzdGlhbmNhc3Ryb3JhamJlQGdtYWlsLmNvbSIsIm5iZiI6MTcxMTMzMDQ4NCwiY3NyZiI6IjFmMjI1Y2Y4LTJkYjktNGQ2ZS1iMWZjLTM5Y2IwMGFlNTBiZSIsImV4cCI6MTcxMTQxNjg4NH0.Kn5sriBCIg51Ii9Alo_n0p3_aKdnMr0JY1KBTQd3KeI"
+            },
+            "tests": []
+        },
+        {
+            "_id": "ab6d078d-5cc5-4774-b921-9ddbce27b87b",
+            "colId": "fc53b68a-d69e-4f98-b20b-6829785635df",
+            "containerId": "",
+            "name": "Create Customer",
+            "url": "http://localhost:3002/customers/new_customer",
+            "method": "POST",
+            "sortNum": 80000,
+            "created": "2024-03-25T01:44:45.565Z",
+            "modified": "2024-03-25T01:45:43.347Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"Juan\",\n  \"lastname\": \"Araujo\",\n  \"email\": \"araujo.j99@gmail.com\",\n  \"password\": \"123456\",\n  \"country\": \"Venezuela\",\n  \"city\": \"Caracas\",\n  \"address\": \"Santa Fe Norte\"\n}",
+                "form": []
+            },
+            "reqType": "put",
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcxMTMzMDQ4NCwianRpIjoiYTdjNWI5ODgtOGVkMi00ZDc2LWJlNmMtOTU2ZWQ0NDZhZmJlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InNlYmFzdGlhbmNhc3Ryb3JhamJlQGdtYWlsLmNvbSIsIm5iZiI6MTcxMTMzMDQ4NCwiY3NyZiI6IjFmMjI1Y2Y4LTJkYjktNGQ2ZS1iMWZjLTM5Y2IwMGFlNTBiZSIsImV4cCI6MTcxMTQxNjg4NH0.Kn5sriBCIg51Ii9Alo_n0p3_aKdnMr0JY1KBTQd3KeI"
+            },
+            "tests": []
+        },
+        {
+            "_id": "1c730cae-ae25-4cee-ae97-0c7cbc3ce441",
+            "colId": "fc53b68a-d69e-4f98-b20b-6829785635df",
+            "containerId": "",
+            "name": "Create Driver",
+            "url": "http://localhost:3002/drivers/new_driver",
+            "method": "POST",
+            "sortNum": 90000,
+            "created": "2024-03-25T01:47:54.429Z",
+            "modified": "2024-03-25T01:49:33.682Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"Juan\",\n  \"lastname\": \"Araujo\",\n  \"email\": \"araujo.j991@gmail.com\",\n  \"password\": \"123456\",\n  \"serial_plate\": \"AA369XA\"\n}",
+                "form": []
+            },
+            "reqType": "post",
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcxMTMzMDQ4NCwianRpIjoiYTdjNWI5ODgtOGVkMi00ZDc2LWJlNmMtOTU2ZWQ0NDZhZmJlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InNlYmFzdGlhbmNhc3Ryb3JhamJlQGdtYWlsLmNvbSIsIm5iZiI6MTcxMTMzMDQ4NCwiY3NyZiI6IjFmMjI1Y2Y4LTJkYjktNGQ2ZS1iMWZjLTM5Y2IwMGFlNTBiZSIsImV4cCI6MTcxMTQxNjg4NH0.Kn5sriBCIg51Ii9Alo_n0p3_aKdnMr0JY1KBTQd3KeI"
+            },
+            "tests": []
+        },
+        {
+            "_id": "b60646d4-8f41-4c71-9225-7efcba8e64a9",
+            "colId": "fc53b68a-d69e-4f98-b20b-6829785635df",
+            "containerId": "",
+            "name": "Get All Orders",
+            "url": "http://localhost:3002/orders",
+            "method": "GET",
+            "sortNum": 100000,
+            "created": "2024-03-25T01:50:04.573Z",
+            "modified": "2024-03-25T01:53:12.526Z",
+            "headers": [],
+            "params": [],
+            "reqType": "post",
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcxMTMzMDQ4NCwianRpIjoiYTdjNWI5ODgtOGVkMi00ZDc2LWJlNmMtOTU2ZWQ0NDZhZmJlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InNlYmFzdGlhbmNhc3Ryb3JhamJlQGdtYWlsLmNvbSIsIm5iZiI6MTcxMTMzMDQ4NCwiY3NyZiI6IjFmMjI1Y2Y4LTJkYjktNGQ2ZS1iMWZjLTM5Y2IwMGFlNTBiZSIsImV4cCI6MTcxMTQxNjg4NH0.Kn5sriBCIg51Ii9Alo_n0p3_aKdnMr0JY1KBTQd3KeI"
+            },
+            "tests": []
+        },
+        {
+            "_id": "c4a3cb20-c03d-4672-8b31-d80e510ac775",
+            "colId": "fc53b68a-d69e-4f98-b20b-6829785635df",
+            "containerId": "",
+            "name": "Create Order",
+            "url": "http://localhost:3002/orders/new_order",
+            "method": "POST",
+            "sortNum": 110000,
+            "created": "2024-03-25T01:50:42.517Z",
+            "modified": "2024-03-25T02:15:34.492Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"delivery\": \"araujo.j991@gmail.com\",\n  \"customer\": \"araujo.j99@gmail.com\",\n  \"products\": [2]\n}",
+                "form": []
+            },
+            "reqType": "post",
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcxMTMzMDQ4NCwianRpIjoiYTdjNWI5ODgtOGVkMi00ZDc2LWJlNmMtOTU2ZWQ0NDZhZmJlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InNlYmFzdGlhbmNhc3Ryb3JhamJlQGdtYWlsLmNvbSIsIm5iZiI6MTcxMTMzMDQ4NCwiY3NyZiI6IjFmMjI1Y2Y4LTJkYjktNGQ2ZS1iMWZjLTM5Y2IwMGFlNTBiZSIsImV4cCI6MTcxMTQxNjg4NH0.Kn5sriBCIg51Ii9Alo_n0p3_aKdnMr0JY1KBTQd3KeI"
+            },
+            "tests": []
+        }
+    ]
+}
